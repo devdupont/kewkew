@@ -1,5 +1,8 @@
 # kewkew
 
+[![PyPI version](https://badge.fury.io/py/kewkew.svg)](https://badge.fury.io/py/kewkew)
+[![License](https://img.shields.io/pypi/l/kewkew.svg)](https://pypi.org/project/kewkew/)
+
 A tiny queue library leveraging asyncio for background tasks or scripting
 
 ## Install
@@ -25,7 +28,7 @@ Here is a minimum viable implementation.
 from kewkew import Kew
 
 class MyKew(Kew):
-    async def worker(data: object) -> bool:
+    async def worker(self, data: object) -> bool:
         print(data)
         return True
 ```
@@ -58,3 +61,15 @@ aio.run(main)
 ```
 
 You can see this and an async database processing example in the [examples folder](examples/).
+
+## Debug
+
+Python Queues have a tendency to swallow runtime exceptions. You can debug your worker more easily by calling it directly.
+
+```python
+import asyncio as aio
+from mykew import MyKew
+
+kew = MyKew()
+aio.run(kew.worker(1))
+```
