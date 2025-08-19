@@ -13,7 +13,7 @@ You can install `kewkew` via pip.
 python -m pip install kewkew
 ```
 
-You can also download the `kewkew.py` source from this repo. There are no external dependencies to worry about.
+You can also download the `kewkew/kew.py` source from this repo. There are no external dependencies to worry about.
 
 ## Usage
 
@@ -28,7 +28,7 @@ Here is a minimum viable implementation.
 from kewkew import Kew
 
 class MyKew(Kew):
-    async def worker(self, data: object) -> bool:
+    async def worker(self, data) -> bool:
         print(data)
         return True
 ```
