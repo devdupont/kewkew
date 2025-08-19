@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: read
+
+jobs:
+  # Build code and docs then deploy to PyPI
+  build-and-publish:
+    name: Upload to PyPI and build docs
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/kewkew
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/python-hatch-env
+      - name: Build wheel
+        run: hatch build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Build docs
+        run: hatch run docs:build docs_build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs_build/

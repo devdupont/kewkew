@@ -1,29 +1,22 @@
-"""
-Demo printing to console
-"""
-
-import asyncio as aio
+"""Demo printing to console."""
 
 from kewkew import Kew
 
 
 class MyKew(Kew):
+    """Kew subclass for printing to console."""
 
     # Kew child classes must implement a worker method
     # This method is given data from the queue and must return a boolean
     # Kew uses this success boolean to mark queue items as complete
     async def worker(self, data: object) -> bool:
-        """
-        Worker prints data and returns success
-        """
+        """Worker prints data and returns success."""
         print(data)
         return True
 
 
 async def a_main():
-    """
-    Demo async main prints values via a Kew
-    """
+    """Demo async main prints values via a Kew."""
     kew = MyKew()
 
     # Load data into the Kew with async add
@@ -35,9 +28,7 @@ async def a_main():
 
 
 def main():
-    """
-    Demo sync main prints values via a Kew
-    """
+    """Demo sync main prints values via a Kew."""
     kew = MyKew()
 
     # Load data into the Kew with sync add_sync

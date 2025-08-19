@@ -1,0 +1,97 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kewkew"
+dynamic = ["version"]
+description = "A tiny queue library leveraging asyncio"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+    { name = "Michael duPont", email = "michael@dupont.dev" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = []
+
+[tool.hatch.version]
+path = "kewkew/__about__.py"
+
+[project.urls]
+Issues = "https://github.com/devdupont/kewkew/issues"
+Source = "https://github.com/devdupont/kewkew"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kewkew"]
+
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+    "mypy>=1.0.0",
+    "pytest-asyncio>=0.23.7",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:kewkew tests}"
+
+[tool.hatch.envs.hatch-test]
+extra-dependencies = [
+    "pytest-asyncio>=0.23.7",
+    "pytest-cov",
+    "pytest-github-actions-annotate-failures",
+]
+
+[tool.pytest.ini_options]
+addopts = """\
+    --cov kewkew \
+    --cov tests \
+    --cov-report term-missing \
+    --no-cov-on-fail \
+"""
+
+[tool.coverage.run]
+source_pkgs = ["kewkew", "tests"]
+branch = true
+parallel = true
+omit = []
+
+[tool.coverage.report]
+fail_under = 50  # increase over time
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.mypy]
+disallow_any_unimported = false
+disallow_untyped_defs = true
+no_implicit_optional = true
+strict_equality = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+check_untyped_defs = true
+show_error_codes = true
+
+[tool.ruff]
+lint.ignore = [
+    "D105",
+    "D203",
+    "D213",
+    # "PLR2004", # Magic variable. Consider slowly re-enabling
+    # "N818",
+    "INP001",
+    "T201",
+]
