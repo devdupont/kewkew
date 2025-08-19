@@ -10,7 +10,7 @@ permissions:
 jobs:
   # Build code and docs then deploy to PyPI
   build-and-publish:
-    name: Upload to PyPI and build docs
+    name: Upload to PyPI
     runs-on: ubuntu-latest
     environment:
       name: pypi
